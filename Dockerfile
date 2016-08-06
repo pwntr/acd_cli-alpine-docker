@@ -4,9 +4,10 @@ MAINTAINER Peter Winter <peter@pwntr.com>
 # create dirs for the config, local mount point, and cloud destination
 RUN mkdir /config /cache /local /cloud
 
-# set the cache and settings path accordingly
+# set the cache, settings, and libfuse path accordingly
 ENV ACD_CLI_CACHE_PATH /cache
 ENV ACD_CLI_SETTINGS_PATH /config
+ENV LIBFUSE_PATH /usr/lib/libfuse.so.2.9.6
 
 # update the base system
 RUN apk update && apk upgrade
