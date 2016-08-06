@@ -11,8 +11,8 @@ ENV ACD_CLI_SETTINGS_PATH /config
 # update the base system
 RUN apk update && apk upgrade
 
-# install python 3 and git
-RUN apk add python3 git && pip3 install --upgrade pip
+# install python 3, fuse, and git
+RUN apk add python3 fuse git && pip3 install --upgrade pip
 
 # install acd_cli
 RUN pip3 install --upgrade git+https://github.com/yadayada/acd_cli.git
