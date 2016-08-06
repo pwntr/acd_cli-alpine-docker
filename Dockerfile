@@ -2,7 +2,11 @@ FROM alpine:latest
 MAINTAINER Peter Winter <peter@pwntr.com>
 
 # create dirs for the config, local mount point, and cloud destination
-RUN mkdir /config /local /cloud
+RUN mkdir /config /cache /local /cloud
+
+# set the cache and settings path accordingly
+ENV ACD_CLI_CACHE_PATH /cache
+ENV ACD_CLI_SETTINGS_PATH /config
 
 # update the base system
 RUN apk update && apk upgrade
@@ -16,7 +20,7 @@ RUN pip3 install --upgrade git+https://github.com/yadayada/acd_cli.git
 # no need for git or the apk cache anymore
 RUN apk del git && rm -rf /var/cache/apk/*
 
-VOLUME /config /local /cloud
+VOLUME /config /cache /local /cloud
 
 ENTRYPOINT ["acd_cli"]
 
