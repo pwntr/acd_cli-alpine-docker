@@ -7,13 +7,16 @@ RUN mkdir /config /cache /local /cloud
 # set the cache, settings, and libfuse path accordingly
 ENV ACD_CLI_CACHE_PATH /cache
 ENV ACD_CLI_SETTINGS_PATH /config
-ENV LIBFUSE_PATH /usr/lib/libfuse.so.2.9.6
+ENV LIBFUSE_PATH /usr/lib/libfuse.so.2
 
 # update the base system
 RUN apk update && apk upgrade
 
 # install python 3, fuse, and git
 RUN apk add python3 fuse git && pip3 install --upgrade pip
+
+# overwrite /etc/fuse.conf with ours to allow other users to access the mounted filesystem from outside the container
+COPY fuse.conf /etc/fuse.conf
 
 # install acd_cli
 RUN pip3 install --upgrade git+https://github.com/yadayada/acd_cli.git
